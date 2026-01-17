@@ -18,13 +18,15 @@ btn.addEventListener("click", async () => {
   resultDiv.classList.remove("hidden");
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ job_text: text })
-    });
+    const response = await fetch("https://fakejobguard.onrender.com/predict", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    job_text: jobText
+  })
+});
 
     const data = await response.json();
 
@@ -40,3 +42,4 @@ btn.addEventListener("click", async () => {
     confidenceEl.textContent = "";
   }
 });
+
