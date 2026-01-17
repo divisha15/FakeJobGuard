@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #f3f2ef;
+  color: #1f2937;
+}
+
+/* Navbar */
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 30px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0a66c2;
+}
+
+.logo span {
+  color: #111827;
+}
+
+/* Main container */
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* Card */
+.card {
+  background: white;
+  width: 520px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Textarea */
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  resize: none;
+  font-size: 14px;
+}
+
+/* Button */
+button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  background: #0a66c2;
+  border: none;
+  color: white;
+  font-size: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #004182;
+}
+
+/* Result */
+.result {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.fake {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.real {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Footer */
+.footer {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+}
