@@ -7,39 +7,58 @@ const confidenceEl = document.getElementById("confidence");
 btn.addEventListener("click", async () => {
   const text = textarea.value.trim();
 
-  if (!text) {
-    alert("Please paste a job description.");
+  // ---------- Input validation ----------
+  if (text.length < 20) {
+    resultDiv.className = "result warning";
+    resultDiv.classList.remove("hidden");
+    predictionEl.textContent = "Invalid input";
+    confidenceEl.textContent =
+      "Please enter a meaningful job description (min 20 characters).";
     return;
   }
 
-  predictionEl.textContent = "Analyzing...";
-  confidenceEl.textContent = "";
-  resultDiv.className = "result";
+  // ---------- Loading state ----------
+  resultDiv.className = "result info";
   resultDiv.classList.remove("hidden");
+  predictionEl.textContent = "Analyzing job posting…";
+  confidenceEl.textContent = "This may take a few seconds";
 
   try {
-    const response = await fetch("https://fakejobguard.onrender.com/predict", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    job_text: jobText
-  })
-});
+    const response = await fetch(
+      "https://fakejobguard.onrender.com/predict",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          job_text: text   // ✅ FIXED
+        })
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Server error");
+    }
 
     const data = await response.json();
 
+    // ---------- Safety check ----------
+    if (typeof data.confidence !== "number" || isNaN(data.confidence)) {
+      throw new Error("Invalid response");
+    }
+
+    // ---------- Display result ----------
     predictionEl.textContent = data.prediction;
     confidenceEl.textContent = `Confidence: ${(data.confidence * 100).toFixed(2)}%`;
 
-    resultDiv.classList.add(
-      data.prediction === "Fake Job" ? "fake" : "real"
-    );
+    resultDiv.className =
+      "result " + (data.prediction === "Fake Job" ? "fake" : "real");
 
   } catch (err) {
-    predictionEl.textContent = "Backend not reachable";
-    confidenceEl.textContent = "";
+    resultDiv.className = "result warning";
+    predictionEl.textContent = "Backend is waking up ⏳";
+    confidenceEl.textContent =
+      "Please wait 20–30 seconds and try again.";
   }
 });
-
